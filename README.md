@@ -46,5 +46,15 @@ We use the following metrics, configured with a default threshold of **0.7** in 
 2. **FaithfulnessMetric**: Verifies that the answer is factually grounded in the provided context.
 3. **GEval (Correctness)**: Checks if the output aligns with the expected answer.
 
+## AI Testing Scenarios
+This framework evaluates the AI model across multiple dimensions:
+- **General Knowledge Correctness**: Validating facts and relevancy against standard questions.
+- **Negative Testing & Hallucination Resistance**: Verifying behavior against false premises, impossible facts, fabricated people, and unsupported claims. DeepEval uses `expected_behavior` to grade the response.
+- **Boundary Testing**: Ensuring graceful handling of empty inputs, special characters, irrelevant context, and extreme lengths.
+- **API Failure vs AI Failure**: Tests are isolated so that API/infrastructure timeouts or credential errors are distinctly logged as `API/INFRASTRUCTURE FAILURE` instead of failing an AI quality metric.
+
 ## Test Cases Format
-Defined in `test_data/test_cases.json`, each test includes: `id`, `question`, `expected_answer`, `context`, and `category`.
+Defined in `test_data/`:
+- `test_cases.json`: Standard questions with `expected_answer` and `context`.
+- `negative_test_cases.json`: Tricky/false premises with `expected_behavior`.
+- `boundary_test_cases.json`: Edge-case inputs with `expected_behavior`.

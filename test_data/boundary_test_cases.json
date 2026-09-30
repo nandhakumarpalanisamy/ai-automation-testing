@@ -1,0 +1,50 @@
+[
+  {
+    "id": "TC-B001",
+    "question": "",
+    "expected_behavior": "The model should politely ask for a question or state that the input was empty.",
+    "category": "Empty String"
+  },
+  {
+    "id": "TC-B002",
+    "question": "?",
+    "expected_behavior": "The model should state that it does not understand the question or ask for clarification.",
+    "category": "Very Short"
+  },
+  {
+    "id": "TC-B003",
+    "question": "What is aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa?",
+    "expected_behavior": "The model should handle the excessively long nonsensical input gracefully without crashing.",
+    "category": "Long String"
+  },
+  {
+    "id": "TC-B004",
+    "question": "1234567890",
+    "expected_behavior": "The model should either treat it as a number and explain it, or ask what the number represents.",
+    "category": "Numbers Only"
+  },
+  {
+    "id": "TC-B005",
+    "question": "!@#$%^&*()",
+    "expected_behavior": "The model should state that the input is unreadable or ask for a valid question.",
+    "category": "Special Characters"
+  },
+  {
+    "id": "TC-B006",
+    "question": "     \n\t   ",
+    "expected_behavior": "The model should treat it as empty and politely ask for a question.",
+    "category": "Whitespace Only"
+  },
+  {
+    "id": "TC-B007",
+    "question": "hOw mAnY COntInenTs aRE thErE?",
+    "expected_behavior": "The model should understand the mixed case and answer the question accurately (7 or 6 depending on convention).",
+    "category": "Mixed Case"
+  },
+  {
+    "id": "TC-B008",
+    "question": "The sky is blue. I like pizza. What is the capital of France?",
+    "expected_behavior": "The model should ignore the irrelevant information and answer that the capital of France is Paris.",
+    "category": "Irrelevant Context"
+  }
+]

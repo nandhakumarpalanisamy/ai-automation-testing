@@ -91,6 +91,43 @@ def evaluate_test_case(question: str, generated_answer: str, expected_answer: st
         }
     }
     
-    # Overall pass
+    # Return overall success
     overall_pass = answer_relevancy.is_successful() and faithfulness.is_successful() and correctness.is_successful()
     return overall_pass, results
+
+def evaluate_negative_test_case(question: str, generated_answer: str, expected_behavior: str):
+    """
+    Evaluates negative, edge, and boundary cases by verifying the model exhibits the expected behavior.
+    """
+    custom_model = CustomGroqEvaluator()
+    
+    test_case = LLMTestCase(
+        input=question,
+        actual_output=generated_answer,
+        expected_output=expected_behavior
+    )
+    
+    # HallucinationResistance using GEval
+    hallucination_resistance = GEval(
+        name="HallucinationResistance",
+        evaluation_steps=[
+            "Determine whether the actual output satisfies the behavior described in the expected output.",
+            "Check if the model detects false premises, avoids inventing facts, or clearly communicates uncertainty if required by the expected behavior."
+        ],
+        evaluation_params=[SingleTurnParams.INPUT, SingleTurnParams.ACTUAL_OUTPUT, SingleTurnParams.EXPECTED_OUTPUT],
+        threshold=Config.THRESHOLD_CORRECTNESS,
+        model=custom_model
+    )
+    
+    hallucination_resistance.measure(test_case)
+    
+    results = {
+        "HallucinationResistance": {
+            "score": hallucination_resistance.score,
+            "success": hallucination_resistance.is_successful(),
+            "reason": hallucination_resistance.reason
+        }
+    }
+    
+    return hallucination_resistance.is_successful(), results
+
