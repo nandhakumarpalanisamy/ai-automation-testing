@@ -46,7 +46,7 @@ def generate_reports(test_results: list, duration_seconds: float):
     }
     
     # Generate JSON
-    with open(REPORTS_DIR / "ai_test_report.json", "w") as f:
+    with open(REPORTS_DIR / "ai_test_report.json", "w", encoding="utf-8") as f:
         json.dump(execution_data, f, indent=2)
         
     # Generate MD
@@ -97,7 +97,7 @@ def generate_markdown(data: dict):
             
         md.append("---")
         
-    with open(REPORTS_DIR / "ai_test_report.md", "w") as f:
+    with open(REPORTS_DIR / "ai_test_report.md", "w", encoding="utf-8") as f:
         f.write("\n".join(md))
 
 def generate_html(data: dict):
