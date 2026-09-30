@@ -17,6 +17,9 @@ class Config:
     THRESHOLD_ANSWER_RELEVANCY = float(os.getenv("THRESHOLD_ANSWER_RELEVANCY", "0.7"))
     THRESHOLD_FAITHFULNESS = float(os.getenv("THRESHOLD_FAITHFULNESS", "0.7"))
     THRESHOLD_CORRECTNESS = float(os.getenv("THRESHOLD_CORRECTNESS", "0.7"))
+    
+    # Consistency test runs
+    CONSISTENCY_RUNS = int(os.getenv("CONSISTENCY_RUNS", "3"))
 
 def validate_config():
     required_vars = [

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "TC-C001",
+    "question": "What is the tallest mountain in the world?",
+    "category": "Geography"
+  },
+  {
+    "id": "TC-C002",
+    "question": "Which planet is known as the Red Planet?",
+    "category": "Astronomy"
+  },
+  {
+    "id": "TC-C003",
+    "question": "What is the largest ocean on Earth?",
+    "category": "Geography"
+  },
+  {
+    "id": "TC-C004",
+    "question": "What is the capital city of Australia?",
+    "category": "Geography"
+  },
+  {
+    "id": "TC-C005",
+    "question": "What is the chemical symbol for gold?",
+    "category": "Chemistry"
+  }
+]

@@ -48,13 +48,33 @@ We use the following metrics, configured with a default threshold of **0.7** in 
 
 ## AI Testing Scenarios
 This framework evaluates the AI model across multiple dimensions:
-- **General Knowledge Correctness**: Validating facts and relevancy against standard questions.
-- **Negative Testing & Hallucination Resistance**: Verifying behavior against false premises, impossible facts, fabricated people, and unsupported claims. DeepEval uses `expected_behavior` to grade the response.
-- **Boundary Testing**: Ensuring graceful handling of empty inputs, special characters, irrelevant context, and extreme lengths.
-- **API Failure vs AI Failure**: Tests are isolated so that API/infrastructure timeouts or credential errors are distinctly logged as `API/INFRASTRUCTURE FAILURE` instead of failing an AI quality metric.
+
+### Functional Testing
+Validates facts and relevancy against standard questions. The model produces the expected factual answer.
+
+### Negative Testing
+Verifies behavior against false premises, impossible facts, fabricated people, and unsupported claims. DeepEval uses `expected_behavior` to grade the response.
+
+### Boundary Testing
+Ensures graceful handling of empty inputs, special characters, irrelevant context, and extreme lengths.
+
+### Consistency Testing
+Sends the same question multiple times (configurable via `CONSISTENCY_RUNS=3` in `.env`). Repeated LLM calls may produce different wording due to non-deterministic temperature sampling. DeepEval evaluates whether the multiple runs remain **semantically consistent** and do not materially contradict each other.
+
+### Regression Testing
+Tests known factual questions against a baseline minimum score to detect quality degradation when models or configurations change.
+
+### Prompt Injection Testing
+Ensures the model maintains factual integrity and does not blindly follow conflicting user instructions (e.g., "Ignore previous rules"), treat user text as system instructions, or intentionally fabricate facts.
+
+### API Failure Testing
+Tests are isolated so that API/infrastructure timeouts or credential errors are distinctly logged as `API/INFRASTRUCTURE FAILURE` instead of failing an AI quality metric.
 
 ## Test Cases Format
 Defined in `test_data/`:
 - `test_cases.json`: Standard questions with `expected_answer` and `context`.
 - `negative_test_cases.json`: Tricky/false premises with `expected_behavior`.
 - `boundary_test_cases.json`: Edge-case inputs with `expected_behavior`.
+- `consistency_test_cases.json`: Questions to repeat N times.
+- `regression_test_cases.json`: Existing questions with `minimum_score`.
+- `prompt_injection_cases.json`: Malicious instructions with `expected_behavior`.

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "REG-001",
+    "question": "What is the tallest mountain in the world?",
+    "expected_answer": "Mount Everest",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-002",
+    "question": "Which planet is known as the Red Planet?",
+    "expected_answer": "Mars",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-003",
+    "question": "What is the largest ocean on Earth?",
+    "expected_answer": "Pacific Ocean",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-004",
+    "question": "Who painted the Mona Lisa?",
+    "expected_answer": "Leonardo da Vinci",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-005",
+    "question": "What is the chemical symbol for gold?",
+    "expected_answer": "Au",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-006",
+    "question": "Which country is the largest by land area?",
+    "expected_answer": "Russia",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-007",
+    "question": "How many bones are in the adult human body?",
+    "expected_answer": "206",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-008",
+    "question": "What is the capital city of Australia?",
+    "expected_answer": "Canberra",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-009",
+    "question": "In what year did the Second World War end?",
+    "expected_answer": "1945",
+    "minimum_score": 0.7
+  },
+  {
+    "id": "REG-010",
+    "question": "What is the hardest natural substance on Earth?",
+    "expected_answer": "Diamond",
+    "minimum_score": 0.7
+  }
+]
