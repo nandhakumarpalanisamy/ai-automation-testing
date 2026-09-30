@@ -12,6 +12,11 @@ class Config:
     EVALUATOR_MODEL_NAME = os.getenv("EVALUATOR_MODEL_NAME")
     EVALUATOR_API_KEY = os.getenv("EVALUATOR_API_KEY")
     EVALUATOR_BASE_URL = os.getenv("EVALUATOR_BASE_URL")
+    
+    # DeepEval evaluation thresholds
+    THRESHOLD_ANSWER_RELEVANCY = float(os.getenv("THRESHOLD_ANSWER_RELEVANCY", "0.7"))
+    THRESHOLD_FAITHFULNESS = float(os.getenv("THRESHOLD_FAITHFULNESS", "0.7"))
+    THRESHOLD_CORRECTNESS = float(os.getenv("THRESHOLD_CORRECTNESS", "0.7"))
 
 def validate_config():
     required_vars = [

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "TC001",
+    "question": "What is the tallest mountain in the world?",
+    "expected_answer": "Mount Everest is the tallest mountain in the world.",
+    "context": ["Mount Everest is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas."],
+    "category": "Geography"
+  },
+  {
+    "id": "TC002",
+    "question": "Which planet is known as the Red Planet?",
+    "expected_answer": "Mars is known as the Red Planet.",
+    "context": ["Mars is the fourth planet from the Sun and the second-smallest planet in the Solar System. It is often referred to as the 'Red Planet' because the iron oxide prevalent on its surface gives it a reddish appearance."],
+    "category": "Astronomy"
+  },
+  {
+    "id": "TC003",
+    "question": "What is the largest ocean on Earth?",
+    "expected_answer": "The Pacific Ocean is the largest ocean on Earth.",
+    "context": ["The Pacific Ocean is the largest and deepest of Earth's oceanic divisions. It extends from the Arctic Ocean in the north to the Southern Ocean in the south."],
+    "category": "Geography"
+  },
+  {
+    "id": "TC004",
+    "question": "Who painted the Mona Lisa?",
+    "expected_answer": "Leonardo da Vinci painted the Mona Lisa.",
+    "context": ["The Mona Lisa is a half-length portrait painting by the Italian artist Leonardo da Vinci. It is considered an archetypal masterpiece of the Italian Renaissance."],
+    "category": "Art"
+  },
+  {
+    "id": "TC005",
+    "question": "What is the chemical symbol for gold?",
+    "expected_answer": "The chemical symbol for gold is Au.",
+    "context": ["Gold is a chemical element with the symbol Au (from Latin: aurum) and atomic number 79. It is a bright, slightly reddish yellow, dense, soft, malleable, and ductile metal in a pure form."],
+    "category": "Chemistry"
+  },
+  {
+    "id": "TC006",
+    "question": "Which country is the largest by land area?",
+    "expected_answer": "Russia is the largest country by land area.",
+    "context": ["Russia, or the Russian Federation, is a transcontinental country spanning Eastern Europe and Northern Asia. It is the largest country in the world by area, covering over 17 million square kilometers."],
+    "category": "Geography"
+  },
+  {
+    "id": "TC007",
+    "question": "How many bones are in the adult human body?",
+    "expected_answer": "There are 206 bones in the adult human body.",
+    "context": ["The human skeleton of an adult consists of around 206 to 213 bones, depending on the counting of sternum (which may alternatively be included as the manubrium, body of sternum, and the xiphoid process)."],
+    "category": "Biology"
+  },
+  {
+    "id": "TC008",
+    "question": "What is the capital city of Australia?",
+    "expected_answer": "Canberra is the capital city of Australia.",
+    "context": ["Canberra is the capital city of Australia. Founded following the federation of the colonies of Australia as the seat of government for the new nation, it is Australia's largest inland city."],
+    "category": "Geography"
+  },
+  {
+    "id": "TC009",
+    "question": "In what year did the Second World War end?",
+    "expected_answer": "The Second World War ended in 1945.",
+    "context": ["World War II or the Second World War was a global conflict that lasted from 1939 to 1945. The vast majority of the world's countries fought as part of two opposing military alliances: the Allies and the Axis."],
+    "category": "History"
+  },
+  {
+    "id": "TC010",
+    "question": "What is the hardest natural substance on Earth?",
+    "expected_answer": "Diamond is the hardest natural substance on Earth.",
+    "context": ["Diamond is a solid form of the element carbon with its atoms arranged in a crystal structure called diamond cubic. It is the hardest known natural material."],
+    "category": "Science"
+  }
+]
