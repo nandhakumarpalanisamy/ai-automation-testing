@@ -78,3 +78,17 @@ Defined in `test_data/`:
 - `consistency_test_cases.json`: Questions to repeat N times.
 - `regression_test_cases.json`: Existing questions with `minimum_score`.
 - `prompt_injection_cases.json`: Malicious instructions with `expected_behavior`.
+
+## Reporting
+
+When you run the test suite using Pytest, it automatically generates comprehensive test reports in the `reports/` directory:
+- `reports/ai_test_report.html`: A professional, human-readable HTML report ideal for sharing with stakeholders or reviewing test results.
+- `reports/ai_test_report.json`: A machine-readable structured JSON file that can be ingested by other tools.
+- `reports/ai_test_report.md`: A markdown summary designed to be committed to GitHub.
+
+### AI Quality vs. Infrastructure Failures
+The framework distinctly separates **AI Quality Failures** (e.g., the model hallucinated, gave the wrong answer, or succumbed to prompt injection) from **API/Infrastructure Failures** (e.g., timeouts, rate limits, or invalid API keys). API failures do not count against the AI's quality score.
+
+### Version Control for Reports
+- `reports/*.md` is committed to Git to show the latest execution summary.
+- `reports/*.html` and `reports/*.json` are ignored by Git. These are typically generated dynamically as CI/CD artifacts rather than stored in version control.

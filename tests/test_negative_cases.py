@@ -1,10 +1,9 @@
 import json
 import pytest
 from pathlib import Path
-from src.clients import generate_answer
+from src.test_utils import generate_and_check_api, print_evaluation_results, record_test_result
 from src.evaluator import evaluate_negative_test_case
 
-# Load test data
 DATA_FILE = Path(__file__).parent.parent / "test_data" / "negative_test_cases.json"
 with open(DATA_FILE, "r") as f:
     negative_test_cases = json.load(f)
@@ -24,33 +23,32 @@ def test_boundary_cases(test_case):
 def _run_behavior_test(test_case):
     question = test_case["question"]
     expected_behavior = test_case["expected_behavior"]
+    category = test_case.get("category", "Behavioral")
     
-    # Step 1: Generate answer from Model 1
-    generated_answer = generate_answer(question)
+    generated_answer = ""
+    results = {}
+    status = "Passed"
+    error_message = ""
     
-    # Guard against API failures from Model 1
-    if generated_answer.startswith("Error generating answer") or generated_answer == "An unexpected error occurred.":
-        pytest.fail(f"API/INFRASTRUCTURE FAILURE: {generated_answer}")
-        
-    # Step 2: Evaluate using Model 2 (DeepEval)
     try:
+        generated_answer = generate_and_check_api(question)
         is_successful, results = evaluate_negative_test_case(
             question=question,
             generated_answer=generated_answer,
             expected_behavior=expected_behavior
         )
+        if not is_successful:
+            status = "AI_Quality_Failure"
+            
     except Exception as e:
-        pytest.fail(f"API/INFRASTRUCTURE FAILURE: Evaluator API error: {e}")
+        status = "API_Failure"
+        error_message = str(e)
+        is_successful = False
+
+    record_test_result(test_case["id"], category, question, generated_answer, expected_behavior, results, status, error_message)
+    print_evaluation_results(test_case["id"], question, generated_answer, expected_behavior, results)
     
-    # Step 3: Print and Assert success
-    print(f"\n--- AI QUALITY FAILURE / REPORT ---")
-    print(f"Test ID: {test_case['id']}")
-    print(f"Question: {question}")
-    print(f"Model Response: {generated_answer}")
-    print(f"Expected Behavior: {expected_behavior}")
-    for metric_name, result in results.items():
-        print(f"Metric Name: {metric_name}")
-        print(f"Metric Score: {result['score']}")
-        print(f"Evaluation Reason: {result['reason']}")
-    
-    assert is_successful, f"AI QUALITY FAILURE for {test_case['id']}."
+    if status == "API_Failure":
+        pytest.fail(error_message)
+    elif status == "AI_Quality_Failure":
+        pytest.fail(f"AI Quality failed for {test_case['id']}.")

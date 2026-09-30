@@ -37,3 +37,8 @@ MANIFEST
 # DeepEval / Reports
 reports/
 .deepeval/
+
+# Reports
+reports/*.html
+reports/*.json
+!reports/*.md

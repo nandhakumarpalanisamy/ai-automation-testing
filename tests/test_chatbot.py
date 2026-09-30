@@ -1,10 +1,9 @@
 import json
 import pytest
 from pathlib import Path
-from src.clients import generate_answer
+from src.test_utils import generate_and_check_api, print_evaluation_results, record_test_result
 from src.evaluator import evaluate_test_case
 
-# Load test data
 DATA_FILE = Path(__file__).parent.parent / "test_data" / "test_cases.json"
 with open(DATA_FILE, "r") as f:
     test_cases = json.load(f)
@@ -14,30 +13,33 @@ def test_chatbot_quality(test_case):
     question = test_case["question"]
     expected_answer = test_case["expected_answer"]
     context = test_case["context"]
+    category = test_case.get("category", "Functional")
     
-    # Step 1: Generate answer from Model 1
-    generated_answer = generate_answer(question)
+    generated_answer = ""
+    results = {}
+    status = "Passed"
+    error_message = ""
     
-    # Guard against API failures from Model 1. 
-    # Do not treat API errors as AI quality failures.
-    if generated_answer.startswith("Error generating answer") or generated_answer == "An unexpected error occurred.":
-        pytest.fail(f"API execution failed: {generated_answer}")
-        
-    # Step 2: Evaluate using Model 2 (DeepEval)
     try:
+        generated_answer = generate_and_check_api(question)
         is_successful, results = evaluate_test_case(
             question=question,
             generated_answer=generated_answer,
             expected_answer=expected_answer,
             context=context
         )
+        if not is_successful:
+            status = "AI_Quality_Failure"
+            
     except Exception as e:
-        pytest.fail(f"DeepEval Evaluation failed due to API error: {e}")
+        status = "API_Failure"
+        error_message = str(e)
+        is_successful = False
+
+    record_test_result(test_case["id"], category, question, generated_answer, expected_answer, results, status, error_message)
+    print_evaluation_results(test_case["id"], question, generated_answer, expected_answer, results)
     
-    # Step 3: Print and Assert success
-    print(f"\n--- Evaluation Results for {test_case['id']} ---")
-    for metric_name, result in results.items():
-        print(f"{metric_name} | Score: {result['score']} | Pass: {result['success']}")
-        print(f"Reason: {result['reason']}\n")
-        
-    assert is_successful, f"AI Quality failed for {test_case['id']}."
+    if status == "API_Failure":
+        pytest.fail(error_message)
+    elif status == "AI_Quality_Failure":
+        pytest.fail(f"AI Quality failed for {test_case['id']}.")

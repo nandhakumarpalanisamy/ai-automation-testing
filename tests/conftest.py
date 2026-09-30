@@ -1,3 +1,18 @@
+import time
+from src.test_utils import GLOBAL_TEST_RESULTS
+from src.reporter import generate_reports
+
+session_start_time = None
+
+def pytest_sessionstart(session):
+    global session_start_time
+    session_start_time = time.time()
+
+def pytest_sessionfinish(session, exitstatus):
+    global session_start_time
+    duration = time.time() - session_start_time if session_start_time else 0
+    generate_reports(GLOBAL_TEST_RESULTS, duration)
+
 def pytest_terminal_summary(terminalreporter, exitstatus, config):
     """Adds a custom AI MODEL TEST SUMMARY at the end of the test run."""
     stats = terminalreporter.stats
